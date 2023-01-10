@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManagerX : MonoBehaviour
 {
@@ -12,11 +14,12 @@ public class SpawnManagerX : MonoBehaviour
 
     private float startDelay = 1.0f;
     private float spawnInterval = 4.0f;
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnRandomBall", startDelay, spawnInterval);
+        // InvokeRepeating("SpawnRandomBall", _timer, spawnInterval);
+        Invoke("SpawnRandomBall", 3f);
     }
 
     // Spawn random ball at random x position at top of play area
@@ -27,6 +30,10 @@ public class SpawnManagerX : MonoBehaviour
 
         // instantiate ball at random spawn location
         Instantiate(ballPrefabs[0], spawnPos, ballPrefabs[0].transform.rotation);
+        
+        float timer = Random.Range(3f, 5f);
+        Invoke("SpawnRandomBall", timer);
+        Debug.Log("Timer: " + timer);
     }
 
 }
